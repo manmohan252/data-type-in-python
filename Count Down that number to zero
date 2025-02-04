@@ -1,0 +1,9 @@
+def countdown():
+    """
+    Asks the user for a number and prints a countdown from that number to zero using a while loop.
+    """
+    num = int(input("Enter a number to start the countdown: "))
+    while num >= 0:
+        print(num)
+        num -= 1  # Decrement the number by 1
+countdown()
