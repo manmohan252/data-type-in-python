@@ -1,0 +1,25 @@
+
+def main():
+    # Dictionary to store names and birthdays
+    birthdays = {
+        "Alice": "1995-05-12",
+        "Bob": "1990-11-23",
+        "Charlie": "1988-07-30"
+    }
+
+    name = input("Enter the name to find the birthday: ").strip()
+
+    if name in birthdays:
+        birthday = birthdays[name]
+        print(f"{name}'s birthday is {birthday}")
+
+        date_parts = birthday.split("-")
+        print("Split birthday into parts:", date_parts)
+
+        joined_date = "/".join(date_parts)
+        print("Reformatted birthday:", joined_date)
+    else:
+        print("Sorry, birthday not found.")
+
+if __name__ == "__main__":
+    main()
