@@ -1,0 +1,53 @@
+
+
+import string
+
+def count_character_frequency(filename):
+    char_freq = {}
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            content = file.read()
+            for char in content:
+                if char in char_freq:
+                    char_freq[char] += 1
+                else:
+                    char_freq[char] = 1
+        return char_freq
+    except FileNotFoundError:
+        print("File not found.")
+        return {}
+
+def guess_file_type(char_freq):
+    # Heuristics (not 100% accurate)
+    code_indicators = {
+        'python': ['def', 'import', ':', '#'],
+        'c': ['#include', ';', '{', '}'],
+    }
+
+    content_joined = ''.join(char_freq.keys())
+
+    python_score = sum(keyword in content_joined for keyword in code_indicators['python'])
+    c_score = sum(keyword in content_joined for keyword in code_indicators['c'])
+
+    if python_score > c_score and python_score > 1:
+        return "Python source code file (.py)"
+    elif c_score > python_score and c_score > 1:
+        return "C source code file (.c or .cpp)"
+    else:
+        return "Probably a plain text file (.txt)"
+
+def main():
+    filename = input("Enter the file name: ").strip()
+    char_freq = count_character_frequency(filename)
+
+    if char_freq:
+        print("\nCharacter Frequencies:")
+        for char, freq in char_freq.items():
+            display_char = repr(char) if char not in string.printable else char
+            print(f"'{display_char}': {freq}")
+
+        file_type = guess_file_type(char_freq)
+        print(f"\nBased on character patterns, this file is likely a: {file_type}")
+
+if __name__ == "__main__":
+    main()
