@@ -1,0 +1,20 @@
+def compute_file_stats(filename):
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            content = file.read()
+
+        num_chars = len(content)
+        num_words = len(content.split())
+        num_lines = content.count('\n') + 1 if content else 0
+
+        print(f"\nFile Statistics for '{filename}':")
+        print(f"Characters: {num_chars}")
+        print(f"Words     : {num_words}")
+        print(f"Lines     : {num_lines}")
+
+    except FileNotFoundError:
+        print("File not found.")
+
+if __name__ == "__main__":
+    filename = input("Enter the filename: ").strip()
+    compute_file_stats(filename)
